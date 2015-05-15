@@ -84,19 +84,35 @@ if z_range[0]==0:
 	z_range[0]=-0.5
 
 # Set up the iteration over the dataset by interpreting arguments
+def round_time_index(d,t,n):
+	# Round the time index down if necessary
+	if n == 0:
+		return 0
+	elif n == len(d['time']):
+		return n-1
+	elif (t-d['time'][n-1] < d['time'][n]-t):
+		return n-1
+	else:
+		return n
+
 if args.starttime:
 	plt_itime_begin = np.searchsorted(data['time'],args.starttime)
+	plt_itime_begin = round_time_index(data,args.starttime,plt_itime_begin)	
 else:
 	plt_itime_begin = 0
 
 if args.endtime:
 	plt_itime_end = np.searchsorted(data['time'],args.endtime)
+	plt_itime_end = round_time_index(data,args.endtime,plt_itime_end)
 else:
 	plt_itime_end = len(data['time'])-1
 
 if args.numplots:
 	plt_time_values = np.linspace(data['time'][plt_itime_begin],data['time'][plt_itime_end],args.numplots)
 	plt_time_indices = np.searchsorted(data['time'],plt_time_values)
+	for pt in range(len(plt_time_values)):
+		plt_time_indices[pt] = round_time_index(data,plt_time_values[pt],plt_time_indices[pt])
+
 elif args.stride:
 	plt_time_indices = range(plt_itime_begin,plt_itime_end,args.stride)
 	plt_time_indices.append(plt_itime_end)
