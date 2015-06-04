@@ -25,7 +25,7 @@ This file is part of nucplotlib.
 import numpy as np
 import xml.etree.ElementTree as etree
 
-class Isotope:
+class Nuclide:
 	def __init__(self,n=None,z=None,x=None):
 		self.n = int(n)
 		self.z = int(z)
@@ -40,7 +40,7 @@ class Isotope:
 
 class Nuclides:
 	def __init__(self):	
-		self.isodata = []
+		self.nucdata = []
 		self.time = []
 		self.xlen = None
 	
@@ -65,11 +65,11 @@ class Nuclides:
 			self.nuclide_lut[entry.attrib['comp']] = nuc_entry
 
 	def clr_dataset(self):
-		self.isodata = []
+		self.nucdata = []
 		self.time = []
 		self.xlen = None
 
-	def add_iso(self,abbrev=None,x=None,n=None,z=None):
+	def add_nuc(self,abbrev=None,x=None,n=None,z=None):
 		if abbrev:
 			# Preferentially lookup isotope n and z using abbrev.
 			this_nuclide = self.nuclide_lut[abbrev.lower()]
@@ -78,8 +78,8 @@ class Nuclides:
 		else:
 			nn = int(n)
 			zz = int(z)
-		iso = Isotope(nn,zz,x)
-		self.isodata.append(iso)
+		nuc = Nuclide(nn,zz,x)
+		self.nucdata.append(nuc)
 		if not self.xlen and x.all():
 			self.xlen = len(x)
 		elif self.xlen and x.all():
@@ -107,9 +107,9 @@ class Nuclides:
 
 		# load any isotopes present as identified by abbreviation
 		dsk = [k.lower() for k in data.keys()]
-		for iso in self.nuclide_lut.keys():
-			if iso in dsk:
-				self.add_iso(abbrev=iso,x=data[iso])
+		for nuc in self.nuclide_lut.keys():
+			if nuc in dsk:
+				self.add_nuc(abbrev=nuc,x=data[nuc])
 
 	def get_range_nz(self):
 		# returns maximum and minimum n and z values in the dataset
@@ -118,17 +118,17 @@ class Nuclides:
 		d = {}
 		n = [-1,-1]
 		z = [-1,-1]
-		for iso in self.isodata:
+		for nuc in self.nucdata:
 			if n[0] == -1:
-				n[0] = iso.n
+				n[0] = nuc.n
 			else:
-				n[0] = min([n[0],iso.n])
-			n[1] = max([n[1],iso.n])	
+				n[0] = min([n[0],nuc.n])
+			n[1] = max([n[1],nuc.n])	
 			if z[0] == -1:
-				z[0] = iso.z
+				z[0] = nuc.z
 			else:
-				z[0] = min([z[0],iso.z])
-			z[1] = max([z[1],iso.z])	
+				z[0] = min([z[0],nuc.z])
+			z[1] = max([z[1],nuc.z])	
 		d['n'] = n
 		d['z'] = z
 		return d
