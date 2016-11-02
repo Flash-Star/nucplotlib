@@ -28,6 +28,7 @@ This file is part of nucplotlib.
     You should have received a copy of the GNU General Public License
     along with nucplotlib.  If not, see <http://www.gnu.org/licenses/>.
 """
+from __future__ import print_function
 import numpy as np
 import matplotlib as mpl
 import matplotlib.cm as cm
@@ -68,13 +69,13 @@ args = parser.parse_args()
 
 # Quickly sanity check the input arguments
 if args.stride and args.numplots:
-	print 'Error: please use only one of either the --numplots or --stride options!'
+	print('Error: please use only one of either the --numplots or --stride options!')
 	exit()
 elif args.stride and args.maxabundances:
-	print 'Error: --maxabundances and --stride may not be used together!'
+	print('Error: --maxabundances and --stride may not be used together!')
 	exit()
 elif args.numplots and args.maxabundances:
-	print 'Error: --maxabundances and --numplots may not be used together!'
+	print('Error: --maxabundances and --numplots may not be used together!')
 	exit()
 
 # Plotting parameters
@@ -163,17 +164,17 @@ if args.numplots:
 		else:
 			plt_log_itime_begin = plt_itime_begin
 		plt_time_values = np.logspace(data['logtime'][plt_log_itime_begin],data['logtime'][plt_itime_end],args.numplots)
-		#print plt_time_values
+		#print(plt_time_values)
 		plt_time_indices = np.searchsorted(data['time'],plt_time_values)
-		#print plt_time_indices
+		#print(plt_time_indices)
 		for pti in xrange(len(plt_time_indices)):
 			if (plt_time_values[pti]-data['time'][plt_time_indices[pti]-1])<(data['time'][plt_time_indices[pti]]-plt_time_values[pti]):
 				plt_time_indices[pti] -= 1
-		#print plt_time_indices
+		#print(plt_time_indices)
 		#tv = []
 		#for pti in plt_time_indices:
 		#	tv.append(data['time'][pti])
-		#print tv
+		#print(tv)
 	else:
 		plt_time_values = np.linspace(data['time'][plt_itime_begin],data['time'][plt_itime_end],args.numplots)
 		plt_time_indices = np.searchsorted(data['time'],plt_time_values)
@@ -254,7 +255,7 @@ for t_n in plt_time_indices:
 	if args.eps or not (args.resolution or args.png or args.pdf):
 		plt.savefig(plt_prefix + '_'+t_n_filename+'.eps')
 
-print "Plotting complete!"
-print "If you would like to combine pngs into a video file (e.g. mp4), "
-print "and have ffmpeg installed, consider using a command such as:"
-print "./ffmpeg -framerate 30 -pattern_type glob -i 'nuclides_*.png' -c:v libx264 -r 30 -pix_fmt yuv420p nuclides.mp4"
+print("Plotting complete!")
+print("If you would like to combine pngs into a video file (e.g. mp4), ")
+print("and have ffmpeg installed, consider using a command such as:")
+print("./ffmpeg -framerate 30 -pattern_type glob -i 'nuclides_*.png' -c:v libx264 -r 30 -pix_fmt yuv420p nuclides.mp4")

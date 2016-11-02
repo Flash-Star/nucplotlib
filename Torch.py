@@ -25,6 +25,7 @@ This file is part of nucplotlib.
     You should have received a copy of the GNU General Public License
     along with nucplotlib.  If not, see <http://www.gnu.org/licenses/>.
 """
+from __future__ import print_function
 from collections import OrderedDict
 import numpy as np
 
@@ -97,7 +98,7 @@ class TorchZND:
 			mlen.append(len(v))
 		
 		if not mlen==[mlen[0]]*len(mlen):
-			print 'Unequal data array lengths for different keys!'
+			print('Unequal data array lengths for different keys!')
 			exit()
 		else:
 			mlen = mlen[0]
