@@ -47,6 +47,9 @@ class Nuclides:
 		## Create a nuclide look-up table for Z and N mapping	
 		self.nuclide_lut = {}
 		# put in neutrons and protons, named as they appear from TORCH
+                self.nuclide_lut['h1'] = {'abb':'h', 'z':1, 'a':1, 'n':0}
+                self.nuclide_lut['h2'] = {'abb':'h', 'z':1, 'a':2, 'n':1}
+                self.nuclide_lut['h3'] = {'abb':'h', 'z':1, 'a':3, 'n':2}
 		self.nuclide_lut['neut'] = {'abb':'neut', 'z':0, 'a':1, 'n':1}
 		self.nuclide_lut['prot'] = {'abb':'prot', 'z':1, 'a':1, 'n':0}
 		# Load Reaclib V1.0 Masses from a reaclib 'nuclides.xml' file
@@ -64,6 +67,12 @@ class Nuclides:
 			nuc_entry['n'] = nuc_entry['a']-nuc_entry['z']
 			self.nuclide_lut[entry.attrib['comp']] = nuc_entry
 
+        def is_nuclide(self,abbrev):
+                if abbrev.lower() in self.nuclide_lut:
+                        return True
+                else:
+                        return False
+                        
 	def clr_dataset(self):
 		self.nucdata = []
 		self.time = []
