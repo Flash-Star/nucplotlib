@@ -16,3 +16,7 @@ To see the available command line options, run:
 
 `nuclides.xml` was downloaded from the JINA Nuclide database
 [Nuclear data homepage](https://groups.nscl.msu.edu/jina/nucdatalib/tools)
+
+Dependencies:
+
+* Should work with both python 2 and 3
