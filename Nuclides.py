@@ -23,6 +23,7 @@ This file is part of nucplotlib.
     along with nucplotlib.  If not, see <http://www.gnu.org/licenses/>.
 """
 import numpy as np
+import os
 import xml.etree.ElementTree as etree
 
 class Nuclide:
@@ -54,7 +55,9 @@ class Nuclides:
 		self.nuclide_lut['prot'] = {'abb':'prot', 'z':1, 'a':1, 'n':0}
 		# Load Reaclib V1.0 Masses from a reaclib 'nuclides.xml' file
 		try:
-			tree = etree.parse('nuclides.xml')
+                        thisdir = os.dirname(os.path.realpath(__file__))
+			tree = etree.parse(os.path.join(thisdir,
+                                                        'nuclides.xml'))
 		except:
 			print 'Error: nuclides.xml missing or corrupt!'
 			exit()
