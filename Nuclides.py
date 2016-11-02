@@ -55,7 +55,7 @@ class Nuclides:
 		self.nuclide_lut['prot'] = {'abb':'prot', 'z':1, 'a':1, 'n':0}
 		# Load Reaclib V1.0 Masses from a reaclib 'nuclides.xml' file
 		try:
-                        thisdir = os.dirname(os.path.realpath(__file__))
+                        thisdir = os.path.dirname(os.path.realpath(__file__))
 			tree = etree.parse(os.path.join(thisdir,
                                                         'nuclides.xml'))
 		except:
