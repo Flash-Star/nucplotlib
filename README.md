@@ -14,6 +14,5 @@ To see the available command line options, run:
 `$python nucplot.py --help`
 
 
-`nuclides.xml` was downloaded from the JINA Reaclib database
-[Reaclib homepage](https://groups.nscl.msu.edu/jina/reaclib/db/index.php)
-
+`nuclides.xml` was downloaded from the JINA Nuclide database
+[Nuclear data homepage](https://groups.nscl.msu.edu/jina/nucdatalib/tools)
